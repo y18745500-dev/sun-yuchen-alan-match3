@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8f2">
+  <title>孙宇晨alan消消乐</title>
+  <style>
+    :root{--ink:#493b49;--muted:#8b7b88;--pink:#f48fb1;--pink-dark:#df6e98;--cream:#fff8f2;--card:#fffdfb;--line:#f4e8e2;--lav:#eee8ff;--mint:#dff5e8;--shadow:0 18px 55px #8d61721c}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% 8%,#ffe5ec 0,transparent 29%),radial-gradient(ellipse at 88% 80%,#e5f8ef 0,transparent 30%),var(--cream);color:var(--ink);font-family:ui-rounded,"SF Pro Rounded","Arial Rounded MT Bold",system-ui,sans-serif;display:grid;place-items:center;padding:24px 14px}
+    button{font:inherit;color:inherit}.game{width:min(100%,990px);display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:22px;align-items:stretch}.board-card,.side-card{background:#ffffffd9;border:1px solid #fff;box-shadow:var(--shadow);border-radius:30px;backdrop-filter:blur(8px)}.board-card{padding:24px;min-width:0}.side-card{padding:27px 24px;display:flex;flex-direction:column;gap:21px;position:relative;overflow:hidden}.side-card:after{content:"✦";position:absolute;right:14px;top:7px;color:#f5c6d4;font-size:55px;opacity:.5;pointer-events:none}
+    .eyebrow{color:#c37d96;font-weight:800;letter-spacing:.16em;font-size:11px;text-transform:uppercase}.topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.brand{display:flex;align-items:center;gap:11px}.logo{height:40px;width:40px;border-radius:14px;background:#ffe4ed;display:grid;place-items:center;font-size:22px}.brand-name{font-size:14px;font-weight:900;letter-spacing:.02em}.sound{border:1px solid var(--line);background:#fff;border-radius:13px;height:38px;width:42px;cursor:pointer;font-size:17px}.heading{margin:0;font-size:clamp(26px,4vw,37px);letter-spacing:-.04em;line-height:1.05}.subtitle{margin:8px 0 17px;color:var(--muted);font-size:13px}.stats{display:flex;gap:10px;margin-bottom:15px}.stat{flex:1;background:#fff;border:1px solid var(--line);border-radius:15px;padding:10px 13px}.stat-label{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.08em}.stat-value{font-size:21px;font-weight:900;margin-top:1px}.stat-value.pink{color:var(--pink-dark)}
+    .board-wrap{position:relative;padding:10px;background:linear-gradient(145deg,#ffe5ed,#f8eafa 55%,#e8f6ed);border-radius:23px;box-shadow:inset 0 2px 7px #9d6a8015}.board{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;aspect-ratio:1;touch-action:manipulation;user-select:none}.tile{border:0;padding:0;border-radius:12px;background:#fffcfa;box-shadow:0 2px 4px #72414d14,inset 0 1px #fff;display:grid;place-items:center;font-size:clamp(17px,3.5vw,31px);cursor:pointer;transition:transform .14s,background .14s,box-shadow .14s;position:relative;min-width:0}.tile:hover{transform:translateY(-2px);box-shadow:0 5px 10px #72414d20}.tile.selected{background:#fff0f5;box-shadow:0 0 0 3px #ef8eae,0 5px 13px #d8699140;transform:scale(.94)}.tile.hint{animation:nudge .5s ease-in-out 2}.tile.clearing{animation:pop .23s ease-in forwards}.tile:focus-visible,.action:focus-visible,.sound:focus-visible{outline:3px solid #af91ea;outline-offset:2px}@keyframes nudge{50%{transform:scale(.88) rotate(-5deg)}}@keyframes pop{to{transform:scale(.1) rotate(22deg);opacity:0}}
+    .board-footer{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:14px;color:var(--muted);font-size:11px}.goal-pill{background:#fff;border-radius:999px;padding:7px 11px;color:#a46b81;font-weight:800}.action{border:0;background:var(--pink);color:#fff;border-radius:15px;padding:13px 17px;font-weight:900;cursor:pointer;box-shadow:0 7px 15px #e87fa040;transition:.15s}.action:hover{background:var(--pink-dark);transform:translateY(-1px)}.action.secondary{color:#a46b81;background:#fff2f6;border:1px solid #f8dce5;box-shadow:none}.actions{display:grid;grid-template-columns:1fr auto;gap:9px}
+    .side-title{font-size:13px;font-weight:900}.score-hero{padding:18px;border-radius:21px;background:linear-gradient(135deg,#fff0f5,#faf3ff);position:relative;z-index:1}.score-hero small{color:#a88493;font-weight:800;letter-spacing:.08em}.score-big{font-size:42px;font-weight:950;letter-spacing:-.06em;color:#d87999;margin:4px 0 0}.goal{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px}.goal-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:900}.goal-emoji{font-size:19px}.progress{height:9px;border-radius:99px;background:#f4eaf0;margin:13px 0 8px;overflow:hidden}.progress-fill{width:0;height:100%;background:linear-gradient(90deg,#f69fba,#c3a2ee);border-radius:99px;transition:width .35s}.goal-caption{font-size:11px;color:var(--muted)}.tip{padding:15px 16px;background:#f0f8f1;border-radius:19px;color:#66836d;font-size:12px;line-height:1.7}.tip strong{color:#4d7056}.side-bottom{margin-top:auto;color:#a2959f;font-size:10px;line-height:1.6}.side-bottom a{color:#98728c;text-decoration:none;border-bottom:1px dotted #c7a8bc}.toast{position:absolute;inset:10px;display:none;place-items:center;background:#fffaf2eF;border-radius:23px;z-index:4;text-align:center;padding:20px}.toast.show{display:grid}.toast-box{max-width:280px}.toast-face{font-size:56px}.toast h2{margin:6px 0;font-size:26px}.toast p{color:var(--muted);font-size:13px;line-height:1.6}
+    @media(max-width:760px){body{padding:12px}.game{grid-template-columns:1fr;max-width:530px;gap:12px}.board-card{padding:16px;border-radius:24px}.side-card{padding:17px;border-radius:24px;display:grid;grid-template-columns:1fr 1fr;gap:11px}.side-card:after{display:none}.side-title,.side-bottom{grid-column:1/-1}.score-hero,.goal{padding:13px}.score-big{font-size:32px}.tip{grid-column:1/-1;padding:11px}.side-bottom{margin-top:0}.board{gap:4px}.tile{border-radius:9px}.board-footer{font-size:10px}}
+    @media(max-width:380px){.board-card{padding:12px}.board-wrap{padding:7px}.board{gap:3px}.stats{gap:6px}.stat{padding:8px}.tile{font-size:18px}}
+    .tile{padding:2px;overflow:hidden}.tile img{width:100%;height:100%;display:block;object-fit:cover;border-radius:9px;pointer-events:none}
+  </style>
+</head>
+<body>
+  <main class="game" aria-label="孙宇晨alan消消乐">
+    <section class="board-card">
+      <div class="topline"><div class="brand"><span class="logo">🍼</span><span class="brand-name">BABY GARDEN</span></div><button class="sound" id="soundBtn" aria-label="切换音效" title="切换音效">🔔</button></div>
+      <h1 class="heading">孙宇晨alan消消乐</h1>
+      <p class="subtitle">交换小宝贝的日常用品，连成三个就能消除 ✨</p>
+      <div class="stats"><div class="stat"><div class="stat-label">本局得分</div><div class="stat-value pink" id="score">0</div></div><div class="stat"><div class="stat-label">剩余步数</div><div class="stat-value" id="moves">25</div></div><div class="stat"><div class="stat-label">最高纪录</div><div class="stat-value" id="best">0</div></div></div>
+      <div class="board-wrap"><div class="board" id="board" role="grid" aria-label="游戏棋盘"></div>
+        <div class="toast" id="toast"><div class="toast-box"><div class="toast-face" id="toastFace">🎉</div><h2 id="toastTitle">好棒呀！</h2><p id="toastText">你为宝宝收集了好多可爱的小物件。</p><button class="action" id="againBtn">再玩一局</button></div></div>
+      </div>
+      <div class="board-footer"><span>👆 点选两个相邻格子来交换</span><span class="goal-pill">目标：<span id="goalMini">1200</span> 分</span></div>
+    </section>
+    <aside class="side-card">
+      <div class="side-title">今日小目标</div>
+      <div class="score-hero"><small>COLLECT LOVE ✿</small><div class="score-big" id="scoreSide">0</div></div>
+      <div class="goal"><div class="goal-top"><span>收集快乐值</span><span class="goal-emoji">🌟</span></div><div class="progress"><div class="progress-fill" id="progress"></div></div><div class="goal-caption"><span id="progressText">还差 1200 分达成目标</span></div></div>
+      <div class="goal"><div class="goal-top"><span>小小提示</span><span class="goal-emoji">🧸</span></div><div class="goal-caption" style="margin-top:8px">一次消除越多，获得的快乐值越多哦！</div></div>
+      <div class="tip"><strong>玩法小贴士</strong><br>凑成横向或纵向的三个相同图案。没有产生消除的交换会自动退回。</div>
+      <div class="actions"><button class="action" id="newBtn">重新开始</button><button class="action secondary" id="hintBtn" title="提示一个可走的步数">给个提示 ✨</button></div>
+      <div class="side-bottom">游戏灵感与匹配消除逻辑基于 <a href="https://github.com/rembound/Match-3-Game-HTML5" target="_blank" rel="noreferrer">Rembound 的 HTML5 Match-3 示例</a>。原示例脚本注明 GPL-3.0；本改编保留署名并遵循 GPL-3.0。<br><a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noreferrer">查看 GPL-3.0 许可</a></div>
+    </aside>
+  </main>
+  <script>
+  // Adapted from the match-and-cascade approach in Rembound's HTML5 Match-3 example.
+  // Copyright (c) 2015 Rembound.com. Original script header: GPL-3.0-or-later.
+  // https://github.com/rembound/Match-3-Game-HTML5
+  (()=>{
+    const W=8,H=8,TYPES=[{src:'tile-1.jpg',name:'图案一'},{src:'tile-2.jpg',name:'图案二'},{src:'tile-3.jpg',name:'图案三'},{src:'tile-4.jpg',name:'图案四'},{src:'tile-5.jpg',name:'图案五'},{src:'tile-1.jpg',name:'图案一变体',filter:'hue-rotate(38deg) saturate(.78)'}],TARGET=1200,START_MOVES=25;
+    const boardEl=document.querySelector('#board'),scoreEl=document.querySelector('#score'),scoreSide=document.querySelector('#scoreSide'),movesEl=document.querySelector('#moves'),bestEl=document.querySelector('#best'),progress=document.querySelector('#progress'),progressText=document.querySelector('#progressText'),toast=document.querySelector('#toast');
+    let grid=[],score=0,moves=START_MOVES,selected=null,busy=false,sfx=true,best=Number(localStorage.getItem('baby-match-best')||0);
+    bestEl.textContent=best;document.querySelector('#goalMini').textContent=TARGET;
+    function randomType(){return Math.floor(Math.random()*TYPES.length)}
+    function hasRunAt(x,y,type){return (x>=2&&grid[x-1][y]===type&&grid[x-2][y]===type)||(y>=2&&grid[x][y-1]===type&&grid[x][y-2]===type)}
+    function freshBoard(){grid=Array.from({length:W},()=>Array(H).fill(0));for(let x=0;x<W;x++)for(let y=0;y<H;y++){let t;do{t=randomType()}while(hasRunAt(x,y,t));grid[x][y]=t}if(!findMoves().length)freshBoard()}
+    function groups(){const found=new Set();for(let y=0;y<H;y++){let start=0;while(start<W){let end=start+1;while(end<W&&grid[end][y]===grid[start][y])end++;if(grid[start][y]>=0&&end-start>=3)for(let x=start;x<end;x++)found.add(`${x},${y}`);start=end}}
+      for(let x=0;x<W;x++){let start=0;while(start<H){let end=start+1;while(end<H&&grid[x][end]===grid[x][start])end++;if(grid[x][start]>=0&&end-start>=3)for(let y=start;y<end;y++)found.add(`${x},${y}`);start=end}}return [...found].map(s=>s.split(',').map(Number))}
+    function swap(a,b){[grid[a.x][a.y],grid[b.x][b.y]]=[grid[b.x][b.y],grid[a.x][a.y]]}
+    function findMoves(){const found=[];for(let x=0;x<W;x++)for(let y=0;y<H;y++)for(const [dx,dy] of [[1,0],[0,1]]){let nx=x+dx,ny=y+dy;if(nx>=W||ny>=H)continue;swap({x,y},{x:nx,y:ny});if(groups().length)found.push([{x,y},{x:nx,y:ny}]);swap({x,y},{x:nx,y:ny})}return found}
+    function draw(){boardEl.innerHTML='';for(let y=0;y<H;y++)for(let x=0;x<W;x++){const b=document.createElement('button');const art=TYPES[grid[x][y]];b.className='tile'+(selected?.x===x&&selected?.y===y?' selected':'');b.type='button';b.role='gridcell';b.dataset.x=x;b.dataset.y=y;const img=document.createElement('img');img.src=art.src;img.alt='';img.draggable=false;if(art.filter)img.style.filter=art.filter;b.append(img);b.setAttribute('aria-label',`${art.name}，第${y+1}行第${x+1}列`);b.addEventListener('click',()=>tap(x,y));boardEl.append(b)}}
+    function update(){scoreEl.textContent=score;scoreSide.textContent=score;movesEl.textContent=moves;bestEl.textContent=best;progress.style.width=`${Math.min(100,score/TARGET*100)}%`;progressText.textContent=score>=TARGET?'目标达成，宝宝超开心！':`还差 ${TARGET-score} 分达成目标`}
+    function tap(x,y){if(busy||moves<=0)return;const here={x,y};if(!selected){selected=here;draw();return}if(selected.x===x&&selected.y===y){selected=null;draw();return}const adjacent=Math.abs(selected.x-x)+Math.abs(selected.y-y)===1;if(!adjacent){selected=here;draw();return}const from=selected;selected=null;swap(from,here);const match=groups();if(!match.length){swap(from,here);draw();return}moves--;draw();resolve()}
+    function resolve(){busy=true;const match=groups();if(!match.length){busy=false;draw();update();finishIfDone();return}for(const [x,y]of match){const tile=boardEl.querySelector(`[data-x="${x}"][data-y="${y}"]`);tile?.classList.add('clearing')}
+      setTimeout(()=>{const cleared=match.length;score+=cleared*60+(cleared>3?(cleared-3)*40:0);for(const[x,y]of match)grid[x][y]=-1;for(let x=0;x<W;x++){const keep=grid[x].filter(v=>v>=0);const missing=H-keep.length;grid[x]=Array(missing).fill(0).map(randomType).concat(keep)}draw();update();playPop();setTimeout(resolve,100)},230)}
+    function playPop(){if(!sfx)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C(),o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.setValueAtTime(660,c.currentTime);o.frequency.exponentialRampToValueAtTime(880,c.currentTime+.09);g.gain.setValueAtTime(.055,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.13);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.14);o.onended=()=>c.close()}catch{}}
+    function finishIfDone(){if(moves>0)return;best=Math.max(best,score);localStorage.setItem('baby-match-best',best);bestEl.textContent=best;const win=score>=TARGET;document.querySelector('#toastFace').textContent=win?'🎉':'🧸';document.querySelector('#toastTitle').textContent=win?'目标达成！':'游戏结束啦';document.querySelector('#toastText').textContent=win?`你收集了 ${score} 点快乐值，宝宝开心地笑啦！`:`这局得到 ${score} 点快乐值，再来一局挑战 ${TARGET} 分吧！`;toast.classList.add('show')}
+    function start(){score=0;moves=START_MOVES;selected=null;toast.classList.remove('show');freshBoard();update();draw()}
+    document.querySelector('#newBtn').addEventListener('click',start);document.querySelector('#againBtn').addEventListener('click',start);document.querySelector('#soundBtn').addEventListener('click',e=>{sfx=!sfx;e.currentTarget.textContent=sfx?'🔔':'🔕';e.currentTarget.setAttribute('aria-label',sfx?'关闭音效':'开启音效')});document.querySelector('#hintBtn').addEventListener('click',()=>{if(busy)return;const options=findMoves();if(!options.length)return;const pair=options[Math.floor(Math.random()*options.length)];for(const p of pair){const el=boardEl.querySelector(`[data-x="${p.x}"][data-y="${p.y}"]`);el?.classList.add('hint');setTimeout(()=>el?.classList.remove('hint'),1100)}});
+    start();
+  })();
+  </script>
+</body>
+</html>
+
+
